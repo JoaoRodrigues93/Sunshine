@@ -1,6 +1,10 @@
 package com.example.android.sunshine;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    /*@Override
+
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -34,10 +38,27 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.preferred_location) {
+
+            onPreferredLocationInMap();
+
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }*/
+    }
+
+    private void onPreferredLocationInMap () {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String location = sharedPreferences.getString(getString(R.string.pref_location_key),getString(R.string.pref_location_default));
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        String place = "geo:0,0";
+        Uri geoLocation  = Uri.parse(place).buildUpon().appendQueryParameter("q",location).build();
+        intent.setData(geoLocation);
+
+        if(intent.resolveActivity(getPackageManager())!=null){
+            startActivity(intent);
+        }
+    }
 }
