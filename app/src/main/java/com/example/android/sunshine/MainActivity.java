@@ -5,11 +5,8 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -49,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onPreferredLocationInMap () {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String location = sharedPreferences.getString(getString(R.string.pref_location_key),getString(R.string.pref_location_default));
-
+        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //String location = sharedPreferences.getString(getString(R.string.pref_location_key),getString(R.string.pref_location_default));
+        String location = Utility.getPreferredLocation(this);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         String place = "geo:0,0";
         Uri geoLocation  = Uri.parse(place).buildUpon().appendQueryParameter("q",location).build();
