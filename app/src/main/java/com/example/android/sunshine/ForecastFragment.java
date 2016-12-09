@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -77,7 +78,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         //String location = sharedPreferences.getString(getString(R.string.pref_location_key),getString(R.string.pref_location_default));
         //new FetchWeatherTask().execute(location);
-        updateWeather();
+        //updateWeather();
     }
 
     @Override
@@ -101,9 +102,31 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         ListView listView = (ListView) root.findViewById(R.id.listview_forecast);
         listView.setAdapter(mForecastAdapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView adapterView, View view, int position, long l) {
+                // CursorAdapter returns a cursor at the correct position for getItem(), or null
+                // if it cannot seek to that position.
+                Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
+                if (cursor != null) {
+                    String locationSetting = Utility.getPreferredLocation(getActivity());
+                    Intent intent = new Intent(getActivity(), DetailActivity.class)
+                            .setData(WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
+                                    locationSetting, cursor.getLong(COL_WEATHER_DATE)
+                            ));
+                    startActivity(intent);
+                }
+            }
+        });
+
         return root;
     }
 
+        void onLocationChanged( ) {
+                updateWeather();
+                getLoaderManager().restartLoader(FORECAST_LOADER, null, this);
+            }
 
     private void updateWeather (){
         FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());

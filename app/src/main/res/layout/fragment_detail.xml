@@ -10,7 +10,7 @@
     tools:showIn="@layout/activity_detail">
 
     <TextView
-        android:id="@+id/textview_forecast"
+        android:id="@+id/detail_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

@@ -11,11 +11,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
+    private final String LOG_TAG = MainActivity.class.getSimpleName();
+    private final String FORECASTFRAGMENT_TAG = "FFTAG";
+    private String mLocation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mLocation = Utility.getPreferredLocation(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
@@ -45,17 +50,30 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void onPreferredLocationInMap () {
+    private void onPreferredLocationInMap() {
         //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         //String location = sharedPreferences.getString(getString(R.string.pref_location_key),getString(R.string.pref_location_default));
         String location = Utility.getPreferredLocation(this);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         String place = "geo:0,0";
-        Uri geoLocation  = Uri.parse(place).buildUpon().appendQueryParameter("q",location).build();
+        Uri geoLocation = Uri.parse(place).buildUpon().appendQueryParameter("q", location).build();
         intent.setData(geoLocation);
 
-        if(intent.resolveActivity(getPackageManager())!=null){
+        if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String location = Utility.getPreferredLocation(this);
+        if (location != null && !location.equals(mLocation)) {
+            ForecastFragment ff = (ForecastFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+            if (null != ff) {
+                ff.onLocationChanged();
+            }
+            mLocation = location;
         }
     }
 }
