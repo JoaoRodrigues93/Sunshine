@@ -25,12 +25,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Today"
+            android:textSize="@dimen/text_24sp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/black"
             android:id="@+id/text_day" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="June 24"
+            android:textSize="@dimen/subheading"
+            android:textColor="@color/soft_black"
+            android:fontFamily="sans-serif-condensed"
             android:id="@+id/text_date" />
     </LinearLayout>
 
@@ -50,12 +56,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="21"
+                android:fontFamily="sans-serif-light"
+                android:textSize="@dimen/text_96sp"
+                android:textColor="@color/black"
                 android:id="@+id/text_max_temp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="8"
+                android:fontFamily="sans-serif-light"
+                android:textSize="@dimen/text_48sp"
+                android:textColor="@color/soft_black"
                 android:id="@+id/text_min_temp" />
         </LinearLayout>
 
@@ -76,6 +88,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Clear"
+                android:textSize="@dimen/text_22sp"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/soft_black"
                 android:id="@+id/text_forecast" />
         </LinearLayout>
     </LinearLayout>
@@ -85,59 +100,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Humidity: "
-                android:id="@+id/textView6" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="84%"
+                android:textSize="@dimen/text_22sp"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif-light"
+                android:layout_marginBottom="4dp"
                 android:id="@+id/text_humidity" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Wind: "
-                android:id="@+id/textView8" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="6 km/H NW"
+                android:textSize="@dimen/text_22sp"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif-light"
+                android:layout_marginBottom="4dp"
                 android:id="@+id/text_wind" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pressure: "
-                android:id="@+id/textView10" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_22sp"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/black"
                 android:text="1014 kpa"
                 android:id="@+id/text_pressure" />
-        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>
