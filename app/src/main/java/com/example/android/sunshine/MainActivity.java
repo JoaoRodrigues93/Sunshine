@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.android.sunshine.sync.SunshineSyncAdapter;
 
 public class MainActivity extends AppCompatActivity implements ForecastFragment.Callback {
     private final String LOG_TAG = MainActivity.class.getSimpleName();
@@ -19,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.v(LOG_TAG,"Starting Main Activity");
         setContentView(R.layout.activity_main);
         mLocation = Utility.getPreferredLocation(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -44,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
         ForecastFragment forecastFragment =  ((ForecastFragment)getSupportFragmentManager()
                                .findFragmentById(R.id.fragment_forecast));
         forecastFragment.setUseTodayLayout(!mTwoPane);
+
+        SunshineSyncAdapter.initializeSyncAdapter(this);
+
     }
 
 
@@ -61,12 +68,7 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.preferred_location) {
 
-            onPreferredLocationInMap();
-
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
